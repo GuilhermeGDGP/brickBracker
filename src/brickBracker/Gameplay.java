@@ -61,6 +61,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.yellow);
         g.fillOval(ballposX, ballposY, 20, 20);
 
+        if (totalBricks <= 0) {
+            play = false;
+            ballXdir = 0;
+            ballYdir = 0;
+
+            g.setColor(Color.green);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("You Won, Scores: " + score, 190, 300);
+
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Press Enter to Continue", 230, 350);
+        }
+
         if (ballposY > 570) {
             play = false;
             ballXdir = 0;
@@ -158,7 +171,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 ballXdir = -1;
                 ballYdir = -2;
                 playerX = 310;
-                score = 0;
+                score = (totalBricks > 0) ? 0 : score;
                 totalBricks = 21;
                 map = new MapGenerator(3, 7);
                 repaint();
